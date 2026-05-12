@@ -80,11 +80,26 @@ WSGI_APPLICATION = 'iot_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+# Database
+# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    },  # <--- FALTA ESTA COMA
+    },
+    'supabase': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_SB_NAME', 'postgres'),
+        'USER': os.getenv('DB_SB_USER', 'postgres'),
+        'PASSWORD': os.getenv('DB_SB_PASS'),
+        'HOST': os.getenv('DB_SB_HOST'),
+        'PORT': os.getenv('DB_SB_PORT', '5432'),
+        'OPTIONS': {
+            'sslmode': 'require',  # Recomendado para conexiones remotas con Supabase
+        },
+    }
+}
 
    ## 'postgres_local': {
     ##    'ENGINE': 'django.db.backends.postgresql',
@@ -96,16 +111,7 @@ DATABASES = {
    ## },  # <--- FALTA ESTA COMA
 
     # 3. Supabase
-    'supabase': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_SB_NAME'),
-        'USER': os.getenv('DB_SB_USER'),
-        'PASSWORD': os.getenv('DB_SB_PASS'),
-        'HOST': os.getenv('DB_SB_HOST'),
-        'PORT': os.getenv('DB_SB_PORT'),
-    }
-}
-
+    
 
 
 
